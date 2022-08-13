@@ -2,3 +2,9 @@ body {
     margin: 0;
     background-color: black;
 }
+
+p {
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+}
