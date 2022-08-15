@@ -3,16 +3,16 @@ const ctx = canvas.getContext("2d");
 
 const scoreElement = document.querySelector("#scoreElement");
 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+canvas.width = innerWidth
+canvas.height = innerHeight
 
 class Wall {
-  static width = 40;
-  static height = 40;
+  static width = 40
+  static height = 40
   constructor({ position }) {
-    this.position = position;
-    this.width = 40;
-    this.height = 40;
+    this.position = position
+    this.width = 40
+    this.height = 40
   }
 
   draw() {
@@ -23,9 +23,9 @@ class Wall {
 
 class Player {
   constructor({ position, velocity }) {
-    this.position = position;
-    this.velocity = velocity;
-    this.radius = 15;
+    this.position = position
+    this.velocity = velocity
+    this.radius = 15
   }
 
   draw() {
@@ -37,39 +37,42 @@ class Player {
       0.75,
       Math.PI * 2 - 0.75
     );
-    ctx.lineTo(this.position.x, this.position.y);
-    ctx.fillStyle = "yellow";
-    ctx.fill();
-    ctx.closePath();
+    ctx.lineTo(this.position.x, this.position.y)
+    ctx.fillStyle = "yellow"
+    ctx.fill()
+    ctx.closePath()
   }
 
   update() {
     this.draw();
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
+    this.position.x += this.velocity.x
+    this.position.y += this.velocity.y
   }
 }
 
 class Ghost {
+    static speed = 2
   constructor({ position, velocity, color = "red" }) {
-    this.position = position;
-    this.velocity = velocity;
-    this.radius = 15;
-    this.color = color;
+    this.position = position
+    this.velocity = velocity
+    this.radius = 15
+    this.color = color
+    this.prevCollisions = []
+    this.speed = 2
   }
 
   draw() {
     ctx.beginPath();
-    ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-    ctx.closePath();
+    ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+    ctx.fillStyle = this.color
+    ctx.fill()
+    ctx.closePath()
   }
 
   update() {
     this.draw();
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
+    this.position.x += this.velocity.x
+    this.position.y += this.velocity.y
   }
 }
 
@@ -93,18 +96,41 @@ const walls = [];
 const ghosts = [
   new Ghost({
     position: {
-      x: 60,
-      y: 180,
+      x: 400,
+      y: 60
     },
     velocity: {
-      x: 0,
-      y: 0,
+      x: Ghost.speed,
+      y: 0
     },
   }),
+  new Ghost({
+    position: {
+        x: 400,
+        y: 820
+    },
+    velocity: {
+        x: Ghost.speed,
+        y: 0
+    },
+    color: 'pink'
+  }),
+  new Ghost({
+    position: {
+        x: 400,
+        y: 500
+    },
+    velocity: {
+        x: Ghost.speed,
+        y: 0
+    },
+    color: 'green'
+  })
 ];
+
 const player = new Player({
   position: {
-    x: 100,
+    x: 100  ,
     y: 60,
   },
   velocity: {
@@ -157,23 +183,23 @@ const map = [
   [
     " ",
     "-",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
     "-",
   ],
   [
@@ -181,12 +207,12 @@ const map = [
     "-",
     ".",
     "-",
-    " ",
+    ".",
     "-",
     "-",
-    " ",
+    ".",
     "-",
-    " ",
+    ".",
     "-",
     " ",
     "-",
@@ -195,7 +221,7 @@ const map = [
     "-",
     ".",
     "-",
-    " ",
+    ".",
     "-",
   ],
   [
@@ -207,17 +233,17 @@ const map = [
     ".",
     ".",
     ".",
-    " ",
-    " ",
     ".",
     ".",
     ".",
     ".",
-    " ",
-    " ",
+    ".",
+    ".",
+    ".",
+    ".",
     ".",
     "-",
-    " ",
+    ".",
     "-",
   ],
   [
@@ -225,65 +251,43 @@ const map = [
     "-",
     ".",
     "-",
-    " ",
-    "-",
-    "-",
-    ".",
-    "-",
-    " ",
-    "-",
-    ".",
-    "-",
     ".",
     "-",
     "-",
     ".",
     "-",
-    " ",
+    ".",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    ".",
     "-",
   ],
   [
     " ",
     "-",
     ".",
-    " ",
-    " ",
-    " ",
-    " ",
-    ".",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
     ".",
     ".",
     ".",
     ".",
-    " ",
-    "-",
-  ],
-  [
-    " ",
-    "-",
     ".",
-    "-",
-    " ",
-    "-",
-    "-",
     ".",
-    "-",
-    "-",
-    " ",
-    "-",
-    "-",
-    " ",
-    "-",
     ".",
-    "-",
-    "-",
-    " ",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
     "-",
   ],
   [
@@ -291,43 +295,21 @@ const map = [
     "-",
     ".",
     "-",
-    " ",
-    "-",
-    "-",
-    ".",
-    ".",
-    ".",
-    ".",
-    ".",
-    ".",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    "-",
-  ],
-  [
-    " ",
-    "-",
-    ".",
-    " ",
-    " ",
-    " ",
-    " ",
     ".",
     "-",
-    "-",
-    " ",
-    "-",
-    "-",
-    " ",
     "-",
     ".",
     "-",
     "-",
-    " ",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
     "-",
   ],
   [
@@ -335,87 +317,43 @@ const map = [
     "-",
     ".",
     "-",
-    " ",
-    "-",
-    " ",
     ".",
     "-",
     "-",
-    " ",
-    "-",
-    "-",
-    " ",
-    " ",
-    ".",
-    ".",
-    ".",
-    " ",
-    "-",
-  ],
-  [
-    " ",
-    "-",
-    ".",
-    " ",
-    " ",
-    " ",
-    " ",
     ".",
     ".",
     ".",
     ".",
     ".",
     ".",
-    " ",
-    "-",
     ".",
-    " ",
-    " ",
-    " ",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
     "-",
   ],
   [
     " ",
     "-",
     ".",
-    "-",
-    " ",
-    "-",
-    " ",
-    ".",
-    "-",
-    "-",
-    " ",
-    "-",
-    "-",
-    " ",
-    "-",
-    ".",
-    "-",
-    "-",
-    " ",
-    "-",
-  ],
-  [
-    " ",
-    "-",
-    ".",
-    " ",
-    " ",
-    " ",
-    " ",
-    ".",
-    " ",
-    " ",
-    ".",
-    " ",
-    " ",
-    " ",
     ".",
     ".",
     ".",
     ".",
-    " ",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
     "-",
   ],
   [
@@ -423,35 +361,13 @@ const map = [
     "-",
     ".",
     "-",
-    " ",
-    "-",
-    " ",
-    ".",
-    "-",
-    "-",
-    " ",
-    "-",
-    "-",
     ".",
     "-",
     ".",
-    "-",
-    "-",
-    " ",
-    "-",
-  ],
-  [
-    " ",
-    "-",
-    ".",
-    " ",
-    " ",
-    " ",
-    " ",
     ".",
     "-",
     "-",
-    " ",
+    ".",
     "-",
     "-",
     ".",
@@ -466,10 +382,6 @@ const map = [
     " ",
     "-",
     ".",
-    "-",
-    " ",
-    "-",
-    " ",
     ".",
     ".",
     ".",
@@ -477,51 +389,11 @@ const map = [
     ".",
     ".",
     ".",
-    "-",
-    " ",
-    ".",
-    "-",
-    " ",
-    "-",
-  ],
-  [
-    " ",
-    "-",
-    ".",
-    " ",
-    " ",
-    " ",
-    " ",
-    ".",
-    "-",
-    "-",
-    " ",
-    "-",
-    "-",
-    ".",
-    "-",
-    " ",
-    ".",
-    "-",
-    ".",
-    "-",
-  ],
-  [
-    " ",
-    "-",
-    ".",
-    "-",
-    " ",
-    "-",
-    " ",
-    ".",
-    "-",
-    "-",
-    " ",
-    "-",
-    "-",
     ".",
     ".",
+    ".",
+    ".",
+    "-",
     ".",
     ".",
     ".",
@@ -532,32 +404,10 @@ const map = [
     " ",
     "-",
     ".",
-    " ",
-    " ",
-    " ",
-    " ",
-    ".",
-    " ",
-    " ",
-    ".",
-    ".",
-    ".",
-    ".",
-    "-",
     "-",
     ".",
     "-",
-    " ",
-    "-",
-  ],
-  [
-    " ",
-    "-",
     ".",
-    "-",
-    " ",
-    "-",
-    " ",
     ".",
     "-",
     "-",
@@ -566,8 +416,8 @@ const map = [
     "-",
     ".",
     "-",
-    "-",
     ".",
+    "-",
     "-",
     ".",
     "-",
@@ -576,13 +426,137 @@ const map = [
     " ",
     "-",
     ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    "-",
+  ],
+  [
     " ",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+    ".",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+  ],
+  [
     " ",
+    "-",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    "-",
+  ],
+  [
     " ",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    "-",
+    ".",
+    ".",
+    "-",
+    ".",
+    "-",
+  ],
+  [
     " ",
+    "-",
     ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    ".",
+    ".",
+    "-",
+    ".",
+    "-",
+  ],
+  [
     " ",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+    ".",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    "-",
+  ],
+  [
     " ",
+    "-",
     ".",
     ".",
     ".",
@@ -591,7 +565,59 @@ const map = [
     ".",
     ".",
     ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+  ],
+  [
     " ",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+    ".",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    "-",
+    ".",
+    "-",
+    ".",
+    "-",
+  ],
+  [
+    " ",
+    "-",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
     "-",
   ],
   [
@@ -646,16 +672,17 @@ map.forEach((row, index) => {
 });
 
 function yellowCollidesWithRectangle({ yellow, rectangle }) {
+    const padding = Wall.width / 2 - yellow.radius - 1
   return (
     yellow.position.y - yellow.radius + yellow.velocity.y <=
-      rectangle.position.y + rectangle.height &&
+      rectangle.position.y + rectangle.height + padding &&
     yellow.position.x + yellow.radius + yellow.velocity.x >=
-      rectangle.position.x &&
+      rectangle.position.x - padding &&
     yellow.position.y + yellow.radius + yellow.velocity.y >=
-      rectangle.position.y &&
+      rectangle.position.y - padding &&
     yellow.position.x - yellow.radius + yellow.velocity.x <=
-      rectangle.position.x + rectangle.width
-  );
+      rectangle.position.x + rectangle.width + padding
+  )
 }
 
 let animationId;
@@ -776,19 +803,136 @@ function animate() {
     if (
       yellowCollidesWithRectangle({
         yellow: player,
-        rectangle: wall,
+        rectangle: wall
       })
     ) {
-      player.velocity.x = 0;
-      player.velocity.y = 0;
+      player.velocity.x = 0
+      player.velocity.y = 0
     }
-  });
-
-  player.update();
+  })
+  player.update()
 
   ghosts.forEach((ghost) => {
-    ghost.update();
-  });
+    ghost.update()
+
+    if (
+        Math.hypot(
+          ghost.position.x - player.position.x,
+          ghost.position.y - player.position.y
+        ) <
+        ghost.radius + player.radius
+      ) {
+        cancelAnimationFrame(animationId)
+        console.log('You Lose!!!')
+      }
+ const collisions = []
+    walls.forEach(wall => {
+        if (
+            !collisions.includes('right') &&
+            yellowCollidesWithRectangle({
+              yellow: {
+                ...ghost,
+                velocity: {
+                  x: ghost.speed,
+                  y: 0
+                }
+              },
+              rectangle: wall
+            })
+          ) {
+            collisions.push('right')
+          }
+          if (
+            !collisions.includes('left') &&
+            yellowCollidesWithRectangle({
+              yellow: {
+                ...ghost,
+                velocity: {
+                  x: -ghost.speed,
+                  y: 0
+                },
+              },
+              rectangle: wall,
+            })
+          ) {
+            collisions.push('left')
+          }
+          if (
+            !collisions.includes('up') &&
+            yellowCollidesWithRectangle({
+              yellow: {
+                ...ghost,
+                velocity: {
+                  x: 0,
+                  y: -ghost.speed,
+                }
+              },
+              rectangle: wall,
+            })
+          ) {
+            collisions.push('up')
+          }
+          if (
+            !collisions.includes('down') &&
+            yellowCollidesWithRectangle({
+              yellow: {
+                ...ghost,
+                velocity: {
+                  x: 0,
+                  y: ghost.speed
+                }
+              },
+              rectangle: wall,
+            })
+          ) {
+            collisions.push('down')
+          }
+    })
+
+    if (collisions.length > ghost.prevCollisions.length)
+    ghost.prevCollisions = collisions
+
+    if (JSON.stringify(collisions) !== JSON.stringify(ghost.prevCollisions)) {
+
+        if (ghost.velocity.x > 0) ghost.prevCollisions.push('right')
+        else if (ghost.velocity.x < 0) ghost.prevCollisions.push('left')
+        else if (ghost.velocity.y < 0) ghost.prevCollisions.push('up') 
+        else if (ghost.velocity.y > 0) ghost.prevCollisions.push('down')
+
+        console.log(collisions)
+        console.log(ghost.prevCollisions)
+
+        const pathways = ghost.prevCollisions.filter((collision) => {
+            return !collisions.includes(collision)
+        })
+        console.log({ pathways })
+
+        const direction = pathways[Math.floor(Math.random() * pathways.length)]
+
+        console.log({ direction })
+
+        switch (direction) {
+            case 'down':
+                ghost.velocity.y = ghost.speed
+                ghost.velocity.x = 0
+                break
+            case 'up':
+                ghost.velocity.y = -ghost.speed
+                ghost.velocity.x = 0
+                break
+            case 'right':
+                ghost.velocity.y = 0
+                ghost.velocity.x = ghost.speed
+                break
+            case 'left':
+                ghost.velocity.y = 0
+                ghost.velocity.x = -ghost.speed
+                break
+        }
+
+        ghost.prevCollisions = []
+    }
+ })
 }
 
 walls.forEach((wall) => {
@@ -796,8 +940,6 @@ walls.forEach((wall) => {
 });
 
 animate();
-
-// win condition
 
 addEventListener("keydown", ({ key }) => {
   switch (key) {
