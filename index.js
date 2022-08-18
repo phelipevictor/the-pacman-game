@@ -26,27 +26,38 @@ class Player {
     this.position = position
     this.velocity = velocity
     this.radius = 15
+    this.radians = 0.75
+    this.openRate = 0.12
+    this.rotation = 0
   }
 
   draw() {
-    ctx.beginPath();
+    ctx.save()
+    ctx.translate(this.position.x, this.position.y)
+    ctx.rotate(this.rotation)
+    ctx.translate(-this.position.x, -this.position.y)
+    ctx.beginPath()
     ctx.arc(
       this.position.x,
       this.position.y,
       this.radius,
-      0.75,
+      this.radians,
       Math.PI * 2 - 0.75
     );
     ctx.lineTo(this.position.x, this.position.y)
     ctx.fillStyle = "yellow"
     ctx.fill()
     ctx.closePath()
+    ctx.restore()
   }
 
   update() {
     this.draw();
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
+
+    if (this.radians < 0 || this.radians > .75) this.openRate = -this.openRate
+    this.radians += this.openRate
   }
 }
 
@@ -933,6 +944,11 @@ function animate() {
         ghost.prevCollisions = []
     }
  })
+
+ if (player.velocity.x > 0) player.rotation = 0
+ else if (player.velocity.x < 0) player.rotation = Math.PI
+ else if (player.velocity.y > 0) player.rotation = Math.PI / 2
+ else if (player.velocity.y < 0) player.rotation = Math.PI * 1.5
 }
 
 walls.forEach((wall) => {
